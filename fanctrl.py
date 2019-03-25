@@ -21,6 +21,7 @@ def run(t):
     GPIO.setup(FAN_PIN, GPIO.OUT)
     GPIO.output(FAN_PIN, GPIO.HIGH)
     time.sleep(t)
+    GPIO.output(FAN_PIN, GPIO.LOW)
 
 def destroy():
     GPIO.output(FAN_PIN, GPIO.LOW)
@@ -49,7 +50,7 @@ if __name__ == '__main__':
             run(ON_TIME)
             destroy()
         except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the child program
-            destroy()              # destroy() is executed to clean up ping reservations.
+            destroy()              # destroy() is executed to clean up pin reservations.
             sys.exit(1)
         print(str(temp) + ' -> ' + str(cpu_temperature()))
     else:
