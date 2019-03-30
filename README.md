@@ -11,27 +11,27 @@ $ sudo apt install python3 python3-pip
 $ pip install -r requirements.txt
 ```
 
-### Installation without cron
-Run `./install.sh` to install `fanctrl` only.
+### Installation
+Run `./install.sh` to install `fanctrl` as standalone program.
 
 ```bash
 $ ./install.sh
 ```
 
-### Installation with cron
-By running `./install.sh cron`, `fanctrl` is installed and added as a cronjob under `etc/cron.d/fanctrl`.
+### Cron
+By running `./install_cron.sh`, `fanctrl` is added as a cronjob.
 
 ```bash
 # All fan events will be stored in fan_log.txt:
-$ ./install.sh cron /home/$USER/fan_log.txt
+$ ./install_cron.sh ~/fan_log.txt
 
 # Alternative: do not store logging information:
-$ ./install.sh cron
+$ ./install.sh 
 ```
 
 ## Usage
 
-When installed with a cronjob, there is no need to run `fanctrl` manually as temperature checks are
+When installed as a cronjob, there is no need to run `fanctrl` manually as temperature checks are
 performed every 60 seconds.
 
 To manually run the fan, execute `fanctrl -f`:
