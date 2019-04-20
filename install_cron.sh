@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "* * * * *  /usr/bin/fanctrl $1" | crontab -
+echo -e "$(crontab -l)\n* * * * *  /usr/bin/fanctrl $1" | crontab -
