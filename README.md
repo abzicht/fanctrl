@@ -26,7 +26,7 @@ By running `./install_cron.sh`, `fanctrl` is added as a cronjob.
 $ ./install_cron.sh ~/fan_log.txt
 
 # Alternative: do not store logging information:
-$ ./install.sh 
+$ ./install_cron.sh 
 ```
 
 ## Usage
