@@ -71,7 +71,7 @@ def parse_args():
         ivalue = int(value)
         if ivalue < min_value:
             raise argparse.ArgumentTypeError("""Interval is {} but must be \
->= {}""".format(value, min_value))
+larger than {}""".format(value, min_value))
         return ivalue
 
     parser = argparse.ArgumentParser()
