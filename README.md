@@ -1,47 +1,69 @@
-# Raspberry PI 3: Fan control
+# Raspberry PI 3 Fan control
 
-This script keeps your SBC healthy by regularly checking cpu temperature
+This script keeps your SBC healthy by regularly checking CPU temperature
 and running an externally attached fan when necessary.
 
 ## Installation
 
-### Requirements
 ```bash
-$ sudo apt install python3 python3-pip
-$ pip install -r requirements.txt
+$ apt install python3 python3-pip
 ```
 
-### Installation
-Run `./install.sh` to install `fanctrl` as standalone program.
+Run `./install.sh`. This installs Python requirements and copies `fanctrl` to
+`/usr/bin/`.
 
 ```bash
 $ ./install.sh
 ```
 
-### Cron
-By running `./install_cron.sh`, `fanctrl` is added as a cronjob.
-
+### Optional
+By running `./install_systemd.sh`, `fanctrl` is installed as `systemd` service
+`fanctrl.service` under `lib/systemd/system/` to run after each system start.
+Log is written to `/var/log/fanctrl.txt`.
 ```bash
-# All fan events will be stored in fan_log.txt:
-$ ./install_cron.sh ~/fan_log.txt
-
-# Alternative: do not store logging information:
-$ ./install_cron.sh 
+$ ./install_systemd.sh
 ```
 
 ## Usage
 
-When installed as a cronjob, there is no need to run `fanctrl` manually as temperature checks are
-performed every 60 seconds.
+When installed for running after system start, there is no need to run
+`fanctrl` manually as temperature checks and fan spinning is performed
+automatically.
 
-To manually run the fan, execute `fanctrl -f`:
+To manually run the fan, call `fanctrl -f`:
 
 ```bash
 # Run the fan, no matter the actual cpu temperature
 $ fanctrl -f
 ```
 
+Get more information with `fanctrl -h`:
+```text
+usage: fanctrl.py [-h] [-f [FORCE]] [-i [INTERVAL]] [-t [TEMPERATURE]]
+                  [-p [PIN]] [-l [LOG]]
 
-## TODO
+optional arguments:
+  -h, --help            show this help message and exit
+  -f [FORCE], --force [FORCE]
+                        Force fan on for FORCE time (default: 15s), no matter
+                        the temperature, and quit. Program does not enter
+                        scheduling mode.
+  -i [INTERVAL], --interval [INTERVAL]
+                        Interval in which cpu temperature is checked. Min:
+                        10s, Default: 30s
+  -t [TEMPERATURE], --temperature [TEMPERATURE]
+                        Temperature (in °C) at which the cooling function is
+                        triggered. Default: 48°C
+  -p [PIN], --pin [PIN]
+                        Physical pin which triggers the fan (BCM mode).
+                        Default: 17
+  -l [LOG], --log [LOG]
+                        The log file temperature changes are written to.
+                        Called once per interval.
+```
 
-- [ ] Add documentation for installing a cooling fan onto a SBC
+## Default values
+* Default fan pin: 17 (BCM mode)
+* Default temperature trigger: 48°C
+* Default interval: 30 seconds
+* Default fan timer in force mode: 15 seconds

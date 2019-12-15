@@ -1,3 +1,3 @@
-#!/bin/bash
-pip install -r requirements.txt
+#!/bin/sh
+pip3 install -r requirements.txt
 cp fanctrl.py /usr/bin/fanctrl
