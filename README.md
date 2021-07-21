@@ -1,4 +1,4 @@
-# Raspberry PI 3 Fan control
+# Raspberry PI Fan control
 
 This script keeps your SBC healthy by regularly checking CPU temperature
 and running an externally attached fan when necessary.
